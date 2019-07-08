@@ -86,16 +86,15 @@ class DefaultStrategy(IStrategy):
         dataframe['macdhist'] = macd['macdhist']
 
         # MFI
-        dataframe['mfi'] = ta.MFI(dataframe)
+        # dataframe['mfi'] = ta.MFI(dataframe)
 
         # Minus Directional Indicator / Movement
-        dataframe['minus_dm'] = ta.MINUS_DM(dataframe)
+        # dataframe['minus_dm'] = ta.MINUS_DM(dataframe)
         dataframe['minus_di'] = ta.MINUS_DI(dataframe)
 
         # Plus Directional Indicator / Movement
-        dataframe['plus_dm'] = ta.PLUS_DM(dataframe)
+        # dataframe['plus_dm'] = ta.PLUS_DM(dataframe)
         dataframe['plus_di'] = ta.PLUS_DI(dataframe)
-        dataframe['minus_di'] = ta.MINUS_DI(dataframe)
 
         """
         # ROC
@@ -105,10 +104,10 @@ class DefaultStrategy(IStrategy):
         dataframe['rsi'] = ta.RSI(dataframe)
 
         # Inverse Fisher transform on RSI, values [-1.0, 1.0] (https://goo.gl/2JGGoy)
-        dataframe['fisher_rsi'] = fishers_inverse(dataframe['rsi'])
+        # dataframe['fisher_rsi'] = fishers_inverse(dataframe['rsi'])
 
         # Inverse Fisher transform on RSI normalized, value [0.0, 100.0] (https://goo.gl/2JGGoy)
-        dataframe['fisher_rsi_norma'] = 50 * (dataframe['fisher_rsi'] + 1)
+        # dataframe['fisher_rsi_norma'] = 50 * (dataframe['fisher_rsi'] + 1)
 
         # Stoch
         stoch = ta.STOCH(dataframe)
@@ -126,6 +125,12 @@ class DefaultStrategy(IStrategy):
         dataframe['fastk_rsi'] = stoch_rsi['fastk']
         """
 
+        # Volume Indicators
+        # ------------------------------------
+
+        # On Balance Volume
+        dataframe['obv'] = ta.OBV(dataframe)
+
         # Overlap Studies
         # ------------------------------------
 
@@ -133,7 +138,7 @@ class DefaultStrategy(IStrategy):
         # Because ta.BBANDS implementation is broken with small numbers, it actually
         # returns middle band for all the three bands. Switch to qtpylib.bollinger_bands
         # and use middle band instead.
-        dataframe['blower'] = ta.BBANDS(dataframe, nbdevup=2, nbdevdn=2)['lowerband']
+        # dataframe['blower'] = ta.BBANDS(dataframe, nbdevup=2, nbdevdn=2)['lowerband']
 
         # Bollinger bands
         bollinger = qtpylib.bollinger_bands(qtpylib.typical_price(dataframe), window=20, stds=2)
@@ -142,27 +147,27 @@ class DefaultStrategy(IStrategy):
         dataframe['bb_upperband'] = bollinger['upper']
 
         # EMA - Exponential Moving Average
-        dataframe['ema3'] = ta.EMA(dataframe, timeperiod=3)
-        dataframe['ema5'] = ta.EMA(dataframe, timeperiod=5)
-        dataframe['ema10'] = ta.EMA(dataframe, timeperiod=10)
+        # dataframe['ema3'] = ta.EMA(dataframe, timeperiod=3)
+        # dataframe['ema5'] = ta.EMA(dataframe, timeperiod=5)
+        # dataframe['ema10'] = ta.EMA(dataframe, timeperiod=10)
         dataframe['ema50'] = ta.EMA(dataframe, timeperiod=50)
-        dataframe['ema100'] = ta.EMA(dataframe, timeperiod=100)
+        dataframe['ema200'] = ta.EMA(dataframe, timeperiod=200)
 
         # SAR Parabol
-        dataframe['sar'] = ta.SAR(dataframe)
+        # dataframe['sar'] = ta.SAR(dataframe)
 
         # SMA - Simple Moving Average
-        dataframe['sma'] = ta.SMA(dataframe, timeperiod=40)
+        # dataframe['sma'] = ta.SMA(dataframe, timeperiod=40)
 
         # TEMA - Triple Exponential Moving Average
-        dataframe['tema'] = ta.TEMA(dataframe, timeperiod=9)
+        # dataframe['tema'] = ta.TEMA(dataframe, timeperiod=9)
 
         # Cycle Indicator
         # ------------------------------------
         # Hilbert Transform Indicator - SineWave
-        hilbert = ta.HT_SINE(dataframe)
-        dataframe['htsine'] = hilbert['sine']
-        dataframe['htleadsine'] = hilbert['leadsine']
+        # hilbert = ta.HT_SINE(dataframe)
+        # dataframe['htsine'] = hilbert['sine']
+        # dataframe['htleadsine'] = hilbert['leadsine']
 
         # Pattern Recognition - Bullish candlestick patterns
         # ------------------------------------
